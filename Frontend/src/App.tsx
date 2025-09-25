@@ -12,7 +12,7 @@ interface Message {
 }
 
 export default function App(): JSX.Element {
-    const timer = useRef<NodeJS.Timeout | null>(null);
+    const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
     const socket = useRef<Socket | null>(null);
     const [userName, setUserName] = useState<string>('');
     const [showNamePopup, setShowNamePopup] = useState<boolean>(true);
@@ -64,7 +64,7 @@ export default function App(): JSX.Element {
     useEffect(() => {
         if (text) {
             socket.current?.emit('typing', userName);
-            clearTimeout(timer.current as NodeJS.Timeout);
+            clearTimeout(timer.current as ReturnType<typeof setTimeout>);
         }
 
         timer.current = setTimeout(() => {
